@@ -3,14 +3,33 @@ import { Header } from "@/components/Header";
 import "./globals.css";
 
 const cairo = Cairo({
-  subsets: ["latin"],
+  subsets: ["latin", "arabic"],
   variable: "--font-cairo",
   display: "swap", // أسرع للـ CLS
 });
 
+
 export const metadata = {
-  title: "Rawda Accessories Shop",
-  description: "توك وإكسسوارات شعر مميزة بأفضل الأسعار",
+  title: "Rawda Accessories Shop | إكسسوارات الشعر والتوك",
+  description:
+    "توك وإكسسوارات شعر مميزة بأفضل الأسعار - اشترِ الآن مع شحن سريع!",
+  keywords: "إكسسوارات, شعر, توك, متجر, Rawda Accessories",
+  authors: [{ name: "Rawda Shop" }],
+  viewport: "width=device-width, initial-scale=1.0",
+  openGraph: {
+    title: "Rawda Accessories Shop",
+    description: "توك وإكسسوارات شعر مميزة بأفضل الأسعار",
+    type: "website",
+    url: "https://rawdashop.com", // ضع رابط موقعك الفعلي
+    images: [
+      {
+        url: "https://rawdashop.com/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Rawda Accessories Shop",
+      },
+    ],
+  },
 };
 
 export default function RootLayout({
