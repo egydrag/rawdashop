@@ -2,9 +2,9 @@ import ProductGrid from "@/components/ProductGrid";
 import { prisma } from "@/lib/prisma";
 
 export default async function HomePage() {
-  const products = await prisma.product.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+  const res = await fetch(`${baseUrl}/api/products`, { cache: "no-store" });
+  const products = await res.json();
 
   return (
     <section>
