@@ -8,7 +8,6 @@ const cairo = Cairo({
   display: "swap", // أسرع للـ CLS
 });
 
-
 export const metadata = {
   title: "Rawda Accessories Shop | إكسسوارات الشعر والتوك",
   description:
@@ -39,6 +38,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <meta
+          name="google-site-verification"
+          content="K_ia_fdAuYdnwaITlI-2Khh1EnbHbDojnvzzwHsbCDs"
+        />
+      </head>
       <body className={`bg-gray-50 text-gray-800 ${cairo.className}`}>
         <Header />
         <main className="container mx-auto p-4">{children}</main>
