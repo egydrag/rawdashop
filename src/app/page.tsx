@@ -1,5 +1,4 @@
 import ProductGrid from "@/components/ProductGrid";
-import { prisma } from "@/lib/prisma";
 
 export default async function HomePage() {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
