@@ -1,4 +1,5 @@
 import { Cairo } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next"
 import { Header } from "@/components/Header";
 import "./globals.css";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
       <body className={`bg-gray-50 text-gray-800 ${cairo.className}`}>
         <Header />
         <main className="container mx-auto p-4">{children}</main>
+        <Analytics/>
       </body>
     </html>
   );
