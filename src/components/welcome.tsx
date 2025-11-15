@@ -15,7 +15,7 @@ export default function WelcomePopup() {
         confirmButtonText: "هيا نبدأ ❤️",
         confirmButtonColor: "#ec4899",
 
-        background: "rgba(255, 255, 255, 0.9)",
+        background: "rgba(255, 255, 255, 0.4)",
         backdrop: `
         rgba(0,0,0,0.4)
         url("https://i.gifer.com/7efs.gif")

@@ -1,5 +1,5 @@
 import { Cairo } from "next/font/google";
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from "@vercel/analytics/next";
 import "animate.css";
 import { Header } from "@/components/Header";
 import "./globals.css";
@@ -16,7 +16,6 @@ export const metadata = {
     "توك وإكسسوارات شعر مميزة بأفضل الأسعار - اشترِ الآن مع شحن سريع!",
   keywords: "إكسسوارات, شعر, توك, متجر, Rawda Accessories",
   authors: [{ name: "Rawda Shop" }],
-  viewport: "width=device-width, initial-scale=1.0",
   openGraph: {
     title: "Rawda Accessories Shop",
     description: "توك وإكسسوارات شعر مميزة بأفضل الأسعار",
@@ -31,6 +30,12 @@ export const metadata = {
       },
     ],
   },
+};
+
+// 👇 خاصية Viewport منفصلة الآن
+export const viewport = {
+  width: "device-width",
+  initialScale: 1.0,
 };
 
 export default function RootLayout({
@@ -49,7 +54,7 @@ export default function RootLayout({
       <body className={`bg-gray-50 text-gray-800 ${cairo.className}`}>
         <Header />
         <main className="container mx-auto p-4">{children}</main>
-        <Analytics/>
+        <Analytics />
       </body>
     </html>
   );
