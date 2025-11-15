@@ -1,5 +1,6 @@
 import { Cairo } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next"
+import "animate.css";
 import { Header } from "@/components/Header";
 import "./globals.css";
 

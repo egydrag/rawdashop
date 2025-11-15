@@ -3,9 +3,14 @@ import { Product } from "@/types";
 
 export default function ProductGrid({ products }: { products: Product[] }) {
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-2 sm:px-0">
       {products.map((p: Product) => (
-        <ProductCard key={p.id} product={p} />
+        <div
+          key={p.id}
+          className="transition-transform duration-150 hover:scale-[1.02] active:scale-[0.98]"
+        >
+          <ProductCard product={p} />
+        </div>
       ))}
     </div>
   );
