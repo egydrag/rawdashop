@@ -2,16 +2,18 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
+
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "toka-store.com",
-        pathname: "/**", // ✅ يسمح بأي مسار داخل toka-store.com
+        hostname: "fnwuinrbqxprspojcsyj.supabase.co",
+        pathname: "/**",
       },
+      // fallback لأي صور Supabase أخرى محتملة
       {
         protocol: "https",
-        hostname: "fnwuinrbqxprspojcsyj.supabase.co",
-        pathname: "/**", // ✅ يسمح بأي مسار داخل lh3.googleusercontent.com
+        hostname: "*.supabase.co",
+        pathname: "/storage/**",
       },
     ],
   },

@@ -4,6 +4,10 @@ export interface Product {
   description?: string | null;
   price: number;
   imageUrl?: string | null;
-  createdAt: Date; // ← خليه Date بدل string
+  isAvailable: boolean;
+  isFeatured: boolean;
+  categoryId?: string | null;
+  category?: { name: string } | null;
+  createdAt?: Date;
   updatedAt?: Date | null;
 }
