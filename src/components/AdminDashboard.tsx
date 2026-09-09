@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
+export const revalidate = 60;
+
+
 type Category = { id: string; name: string };
 type Product = {
   id: string;
@@ -204,7 +207,7 @@ export function AdminDashboard({
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${
+            className={`cursor-pointer flex-1 py-2 text-sm font-bold rounded-lg transition-colors ${
               activeTab === tab
                 ? "bg-white text-stone-900 shadow-sm"
                 : "text-stone-500 hover:text-stone-700"
@@ -297,7 +300,7 @@ export function AdminDashboard({
                   className="w-full rounded-xl border border-stone-200 p-3 text-sm file:me-3 file:rounded-lg file:border-0 file:bg-rose-50 file:px-3 file:py-1 file:text-xs file:font-bold file:text-rose-700"
                 />
               </div>
-              <button className="sm:col-span-2 rounded-xl bg-rose-600 p-3 font-bold text-white hover:bg-rose-700 transition-colors text-sm">
+              <button className="cursor-pointer sm:col-span-2 rounded-xl bg-rose-600 p-3 font-bold text-white hover:bg-rose-700 transition-colors text-sm">
                 + إضافة المنتج
               </button>
             </form>
@@ -355,7 +358,7 @@ export function AdminDashboard({
                   </div>
                   <button
                     onClick={() => restoreProduct(product)}
-                    className="text-xs font-bold text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg hover:bg-emerald-50 transition-colors shrink-0"
+                    className="text-xs cursor-pointer font-bold text-emerald-700 border border-emerald-200 px-3 py-1.5 rounded-lg hover:bg-emerald-50 transition-colors shrink-0"
                   >
                     استعادة
                   </button>
@@ -374,7 +377,7 @@ export function AdminDashboard({
                 className="min-w-0 flex-1 rounded-xl border border-stone-200 p-3 text-sm focus:outline-none focus:ring-2 focus:ring-rose-300 transition"
                 placeholder="اسم التصنيف الجديد"
               />
-              <button className="rounded-xl bg-stone-900 px-4 text-white text-sm font-bold hover:bg-stone-700 transition-colors">
+              <button className="rounded-xl cursor-pointer bg-stone-900 px-4 text-white text-sm font-bold hover:bg-stone-700 transition-colors">
                 إضافة
               </button>
             </form>
@@ -387,7 +390,7 @@ export function AdminDashboard({
                   <span className="text-sm text-stone-700">{cat.name}</span>
                   <button
                     onClick={() => deleteCategory(cat.id)}
-                    className="text-stone-400 hover:text-red-600 transition-colors text-xs font-bold"
+                    className="text-stone-400 cursor-pointer hover:text-red-600 transition-colors text-xs font-bold"
                     title="حذف التصنيف"
                   >
                     ×
@@ -473,7 +476,7 @@ export function AdminDashboard({
                 اكتبي الرقم مع رمز الدولة بدون علامة + (مثال: 201012345678)
               </p>
             </div>
-            <button className="w-full rounded-xl bg-stone-900 p-3 font-bold text-white hover:bg-stone-700 transition-colors text-sm">
+            <button className="w-full cursor-pointer rounded-xl bg-stone-900 p-3 font-bold text-white hover:bg-stone-700 transition-colors text-sm">
               حفظ الإعدادات
             </button>
           </form>
@@ -540,7 +543,7 @@ function ProductEditor({
         {/* زر التعديل */}
         <button
           onClick={() => setEditing(!editing)}
-          className={`text-xs font-bold px-3 py-2 rounded-lg border transition-colors shrink-0 ${
+          className={`text-xs cursor-pointer font-bold px-3 py-2 rounded-lg border transition-colors shrink-0 ${
             editing
               ? "bg-stone-100 border-stone-200 text-stone-700"
               : "bg-white border-stone-200 text-stone-700 hover:bg-stone-50"
@@ -634,13 +637,13 @@ function ProductEditor({
           <div className="flex gap-2 pt-1">
             <button
               onClick={() => onSave(product, { name, description, price: Number(price) })}
-              className="flex-1 rounded-xl bg-stone-900 p-2.5 text-sm font-bold text-white hover:bg-stone-700 transition-colors"
+              className="flex-1 rounded-xl cursor-pointer bg-stone-900 p-2.5 text-sm font-bold text-white hover:bg-stone-700 transition-colors"
             >
               حفظ التعديلات
             </button>
             <button
               onClick={() => onHide(product)}
-              className="px-4 rounded-xl border border-red-200 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
+              className="px-4 rounded-xl border cursor-pointer border-red-200 text-sm font-bold text-red-600 hover:bg-red-50 transition-colors"
             >
               إخفاء
             </button>

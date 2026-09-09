@@ -3,6 +3,8 @@ import { requireAdminPage } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { STORE_SETTINGS_ID } from "@/lib/store";
 
+export const revalidate = 2;
+
 export default async function DashboardPage() {
   await requireAdminPage();
   const [products, categories, settings, orders] = await Promise.all([
