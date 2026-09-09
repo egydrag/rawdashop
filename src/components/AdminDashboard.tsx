@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 
 type Category = { id: string; name: string };
@@ -160,12 +161,12 @@ export function AdminDashboard({
           <h1 className="text-2xl font-bold text-stone-900">لوحة التحكم</h1>
           <p className="text-sm text-stone-500 mt-0.5">إدارة متجر {settings.storeName}</p>
         </div>
-        <a
+        <Link
           href="/"
           className="text-sm text-stone-600 hover:text-stone-900 border border-stone-200 px-3 py-1.5 rounded-lg hover:bg-stone-50 transition-colors"
         >
           ← عرض المتجر
-        </a>
+        </Link>
       </header>
 
       {/* إشعار */}
