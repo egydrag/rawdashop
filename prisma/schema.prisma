@@ -103,7 +103,7 @@ model OrderItem {
 model StoreSettings {
   id             String   @id @default("default")
   storeName      String   @default("روضه ستور")
-  whatsappNumber String   @default("01024620610")
+  whatsappNumber String   @default("01080055206")
   updatedAt      DateTime @default(now()) @updatedAt
 
   @@schema("public")

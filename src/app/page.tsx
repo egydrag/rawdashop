@@ -2,6 +2,11 @@ import { Suspense } from "react";
 import ProductGrid from "@/components/ProductGrid";
 import { prisma } from "@/lib/prisma";
 import { getStoreSettings } from "@/lib/store";
+import { Aref_Ruqaa } from "next/font/google";
+
+const aref = Aref_Ruqaa({
+  weight: '400'
+})
 
 export const revalidate = 60;
 
@@ -19,23 +24,67 @@ export default async function HomePage() {
     }),
   ]);
 
-  const storeName = settings?.storeName || "روضة للإكسسوارات";
+  const configuredStoreName = settings?.storeName?.trim();
+  const storeName =
+    configuredStoreName && configuredStoreName !== "روضة للإكسسوارات"
+      ? configuredStoreName
+      : "بريق";
   const featured = products.filter((p) => p.isFeatured);
 
   return (
     <div className="space-y-8 pb-10">
       {/* Hero Section */}
-      <section className="rounded-2xl bg-linear-to-br from-rose-50 to-pink-50 px-6 py-10 text-center border border-rose-100">
-        <p className="text-3xl mb-2">🌸</p>
-        <h1 className="text-3xl font-bold text-stone-900">{storeName}</h1>
-        <p className="mt-2 text-stone-500 text-sm max-w-xs mx-auto leading-relaxed">
-          إكسسوارات مختارة بعناية — اطلبي بسهولة عبر WhatsApp
-        </p>
+      <section className="relative isolate overflow-hidden rounded-4xl bg-linear-to-br from-rose-100 via-pink-50 to-amber-50 px-6 py-12 text-center border border-rose-100 sm:px-10 sm:py-16">
+        <div className="pointer-events-none absolute -inset-e-16 -top-20 size-56 rounded-full bg-white/50 blur-3xl" />
+        <div className="pointer-events-none absolute -inset-s-20 -bottom-24 size-64 rounded-full bg-rose-200/40 blur-3xl" />
+        <div className="relative">
+          <span className="inline-flex items-center rounded-full border border-rose-200 bg-white/70 px-4 py-1 text-xs font-bold text-rose-700">
+            لمسة تكمّل أناقتك
+          </span>
+          <h1 className={`mt-2 text-4xl font-bold tracking-tight ${aref.className} text-stone-900 sm:text-5xl`}>
+            {storeName}
+          </h1>
+          <p className="mt-3 text-lg font-semibold text-rose-800 sm:text-xl">
+            أجمل الإكسسوارات لإطلالة تليق بك
+          </p>
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-7 text-stone-600 sm:text-base">
+            اكتشفي مجموعتنا المميزة من إكسسوارات الشعر والتوك المختارة بعناية،
+            وصمّمت لتضيف لمسة من الجمال إلى كل يوم وكل مناسبة.
+          </p>
+          <div className="mt-7 flex flex-col justify-center gap-3 sm:flex-row">
+            <a
+              href="#products"
+              className="rounded-xl bg-rose-600 px-6 py-3 text-sm font-bold text-white shadow-lg shadow-rose-600/20 transition-colors hover:bg-rose-700"
+            >
+              تسوّقي الآن
+            </a>
+            <a
+              href="#featured"
+              className="rounded-xl border border-rose-200 bg-white/80 px-6 py-3 text-sm font-bold text-rose-700 transition-colors hover:bg-white"
+            >
+              اكتشفي المميز
+            </a>
+          </div>
+          <div className="mx-auto mt-9 grid max-w-lg grid-cols-3 divide-x divide-x-reverse divide-rose-200/80 text-center">
+            <div className="px-2">
+              <strong className="block text-xl font-bold text-stone-900">1000+</strong>
+              <span className="text-xs text-stone-500">عميلة سعيدة</span>
+            </div>
+            <div className="px-2">
+              <strong className="block text-xl font-bold text-stone-900">500+</strong>
+              <span className="text-xs text-stone-500">قطعة مميزة</span>
+            </div>
+            <div className="px-2">
+              <strong className="block text-xl font-bold text-stone-900">4.9</strong>
+              <span className="text-xs text-stone-500">تقييم عميلاتنا</span>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* المنتجات المميزة */}
       {featured.length > 0 && (
-        <section>
+        <section id="featured">
           <h2 className="text-lg font-bold text-stone-900 mb-3 flex items-center gap-2">
             <span>⭐</span> منتجات مميزة
           </h2>
@@ -77,7 +126,7 @@ export default async function HomePage() {
       )}
 
       {/* كل المنتجات مع الفلتر */}
-      <section>
+      <section id="products">
         <h2 className="text-lg font-bold text-stone-900 mb-3">كل المنتجات</h2>
         <Suspense
           fallback={
