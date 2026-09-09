@@ -25,7 +25,7 @@ export default async function HomePage() {
   return (
     <div className="space-y-8 pb-10">
       {/* Hero Section */}
-      <section className="rounded-2xl bg-gradient-to-br from-rose-50 to-pink-50 px-6 py-10 text-center border border-rose-100">
+      <section className="rounded-2xl bg-linear-to-br from-rose-50 to-pink-50 px-6 py-10 text-center border border-rose-100">
         <p className="text-3xl mb-2">🌸</p>
         <h1 className="text-3xl font-bold text-stone-900">{storeName}</h1>
         <p className="mt-2 text-stone-500 text-sm max-w-xs mx-auto leading-relaxed">
@@ -52,7 +52,7 @@ export default async function HomePage() {
                         alt={product.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                      <span className="absolute top-2 end-2 bg-rose-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                      <span className="absolute top-2 inset-e-2 bg-rose-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
                         ⭐ مميز
                       </span>
                     </div>

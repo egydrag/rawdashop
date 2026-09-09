@@ -29,7 +29,7 @@ export default function ProductCard({ product }: { product: ProductCardProduct }
           />
           {/* شارة المميز */}
           {product.isFeatured && (
-            <span className="absolute top-2 end-2 bg-rose-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+            <span className="absolute top-2 inset-e-2 bg-rose-600 text-white text-xs font-bold px-2 py-0.5 rounded-full">
               ⭐ مميز
             </span>
           )}
