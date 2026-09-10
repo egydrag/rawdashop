@@ -1,11 +1,10 @@
 import Link from "next/link";
 import { currentUser, isCurrentUserAdmin } from "@/lib/auth";
-import { createClient } from "@/lib/supabase/server";
+import { signOut } from "@/auth";
 
 async function logout() {
   "use server";
-  const supabase = await createClient();
-  await supabase.auth.signOut();
+  await signOut({ redirectTo: "/" });
 }
 
 export async function Header() {

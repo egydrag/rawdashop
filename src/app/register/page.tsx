@@ -1,33 +1,58 @@
 "use client";
 
-import { createClient } from "@/lib/supabase/client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 export default function RegisterPage() {
-  const [message, setMessage] = useState("");
+  const router = useRouter();
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  async function register(formData: FormData) {
+  async function register(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     setLoading(true);
     setError("");
+
+    const formData = new FormData(e.currentTarget);
+    const name = String(formData.get("fullName"));
     const email = String(formData.get("email"));
     const password = String(formData.get("password"));
-    const fullName = String(formData.get("fullName"));
-    const { error: authError } = await createClient().auth.signUp({
-      email,
-      password,
-      options: {
-        data: { full_name: fullName },
-        emailRedirectTo: `${window.location.origin}/login`,
-      },
-    });
-    setLoading(false);
-    if (authError) return setError(authError.message);
-    setMessage(
-      "تم إنشاء الحساب! راجعي بريدك الإلكتروني لتأكيده ثم سجّلي الدخول."
-    );
+
+    try {
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setLoading(false);
+        setError(data.error || "تعذر إنشاء الحساب.");
+        return;
+      }
+
+      const signInRes = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      setLoading(false);
+
+      if (signInRes?.error) {
+        router.push("/login?registered=true");
+      } else {
+        router.push("/");
+        router.refresh();
+      }
+    } catch {
+      setLoading(false);
+      setError("حدث خطأ غير متوقع. يرجى المحاولة لاحقاً.");
+    }
   }
 
   return (
@@ -40,7 +65,7 @@ export default function RegisterPage() {
         </div>
 
         <form
-          action={register}
+          onSubmit={register}
           className="space-y-4 bg-white p-6 rounded-2xl shadow-sm border border-stone-100"
         >
           <div>
@@ -90,14 +115,8 @@ export default function RegisterPage() {
             </p>
           )}
 
-          {message && (
-            <p className="text-sm text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-lg px-3 py-2">
-              ✓ {message}
-            </p>
-          )}
-
           <button
-            disabled={loading || !!message}
+            disabled={loading}
             className="w-full rounded-xl bg-stone-900 p-3 font-bold text-white hover:bg-stone-700 transition-colors disabled:opacity-60 text-sm"
           >
             {loading ? "جارٍ الإنشاء..." : "إنشاء الحساب"}
