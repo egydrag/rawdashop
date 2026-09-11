@@ -117,7 +117,7 @@ export default function RegisterPage() {
 
           <button
             disabled={loading}
-            className="w-full rounded-xl bg-stone-900 p-3 font-bold text-white hover:bg-stone-700 transition-colors disabled:opacity-60 text-sm"
+            className="cursor-pointer w-full rounded-xl bg-stone-900 p-3 font-bold text-white hover:bg-stone-700 transition-colors disabled:opacity-60 text-sm"
           >
             {loading ? "جارٍ الإنشاء..." : "إنشاء الحساب"}
           </button>

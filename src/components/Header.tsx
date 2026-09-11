@@ -29,7 +29,7 @@ export async function Header() {
               {isAdmin && (
                 <Link
                   href="/dashboard"
-                  className="text-sm font-bold bg-rose-600 text-white px-3 py-1.5 rounded-lg hover:bg-rose-700 transition-colors"
+                  className="cursor-pointer text-sm font-bold bg-rose-600 text-white px-3 py-1.5 rounded-lg hover:bg-rose-700 transition-colors"
                 >
                   لوحة التحكم
                 </Link>
@@ -37,7 +37,7 @@ export async function Header() {
               <form action={logout}>
                 <button
                   type="submit"
-                  className="text-sm text-stone-600 hover:text-stone-900 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors"
+                  className="cursor-pointer text-sm text-stone-600 hover:text-stone-900 px-3 py-1.5 rounded-lg hover:bg-stone-100 transition-colors"
                 >
                   خروج
                 </button>
