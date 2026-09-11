@@ -6,29 +6,30 @@ import GitHub from "next-auth/providers/github"
 import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import { z } from "zod"
-import type { Role } from "@prisma/client"
+import authConfig from "./auth.config"
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
+
   adapter: PrismaAdapter(prisma),
-  session: { strategy: "jwt" },
-  pages: {
-    signIn: "/login",
-    error: "/login",
-  },
+
   providers: [
     Google({
       clientId: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
+
     GitHub({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+
     Credentials({
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
       },
+
       async authorize(credentials) {
         const parsed = z
           .object({
@@ -52,7 +53,11 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
 
         if (!user || !user.password) return null
 
-        const isValid = await bcrypt.compare(parsed.data.password, user.password)
+        const isValid = await bcrypt.compare(
+          parsed.data.password,
+          user.password,
+        )
+
         if (!isValid) return null
 
         return {
@@ -64,20 +69,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    jwt({ token, user }) {
-      if (user) {
-        if (user.id) token.id = user.id
-        if (user.role) token.role = user.role as Role
-      }
-      return token
-    },
-    session({ session, token }) {
-      if (session.user) {
-        session.user.id = (token.id as string) ?? token.sub ?? ""
-        session.user.role = (token.role as Role) ?? "CUSTOMER"
-      }
-      return session
-    },
-  },
 })
