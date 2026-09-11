@@ -1,35 +1,28 @@
-
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
 export async function currentUser() {
-  const cookieStore = await cookies();
-  const adminCookie = cookieStore.get("admin")?.value;
-
-  if (
-    !adminCookie ||
-    !process.env.ADMIN_SECRET ||
-    adminCookie !== process.env.ADMIN_SECRET
-  ) {
-    return null;
-  }
-
-  return {
-    id: "admin",
-  };
+  const session = await auth()
+  return session?.user ?? null
 }
 
 export async function isCurrentUserAdmin() {
-  const user = await currentUser();
-  return user !== null;
+  const session = await auth()
+  return session?.user?.role === "ADMIN"
 }
 
 export async function requireAdminPage() {
-  const user = await currentUser();
-
-  if (!user) {
-    redirect("/login?next=/dashboard");
+  const session = await auth()
+  if (!session?.user || session.user.role !== "ADMIN") {
+    redirect("/login?next=/dashboard")
   }
+  return session.user
+}
 
-  return user;
+export async function requireAuth() {
+  const session = await auth()
+  if (!session?.user) {
+    redirect("/login")
+  }
+  return session.user
 }
